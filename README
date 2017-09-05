@@ -1,3 +1,5 @@
+Este projeto implementa um CRUD utilizando jax-rs no lado servidor e javascript no lado cliente. 
+
 O projeto foi desenvolvido utilizando as seguintes ferramentas e frameworks:
 	*	Netbeans 8.0.2
 	*	PostgreSQL  
@@ -6,5 +8,68 @@ O projeto foi desenvolvido utilizando as seguintes ferramentas e frameworks:
 	*	GSON  
 	*	Hibernate 
 	*	Tomcat
+	*	JAX-RS
 
+Passo a passo para executar o projeto:
+1 - Baixe o projeto e descompacte-o em um diretório de sua preferência;
+2 - Crie um novo database no postgres
+3 - Inicie o netbeans;
+4 - Selecione a opção abrir projeto;
+5 - Selecione o diretório do projeto que devera estar em DesafioHexagon/MedicalRecord;
+6 - Acesse no netbeans a aba serviços, caso ela não esteja visível selecione na barra de menus a opção ferramentas->serviços;
+7 - No item banco de dados crie uma nova conexão com uma base postgres;
+7.1 - Selecione o driver do postgres;
+7.2 - Informe os dados de conexão, tais como usuário, senha, o nome do schema (foi criado no postgres , no passo 2);
+7.3 - Finalize os dados de conexão.
+8 - Volte para a aba projetos e expanda os arquivos do projeto;
+9 - Expanda a pasta arquivos de configuração e abra o arquivo persistence.xml, abra este arquivo em mod design;
+10 - Selecione no combobox chamado 'Conexão JDBC' a conexão que foi criado agora pouco, mantenha as demais configurações;
+11 - Volte na aba serviços que acessamos anteriormente, agora selecione a opção servidores;
+12 - Expanda as opções para vizualizar os servidores instalados no seu ambiente;
+13 - Certifique-se de todos os servidores estarem parados;
+14 - Selecione o servidor Apache Tomcat e clique com o botão direito do mouse sobre ele;
+15 - Selecione a opção propriedade;
+16 - Altere o número da porta do servidor para 8084;
+17 - Salve as todas as configurações;
+18 - Execute o projeto.
+
+Obs: Se por acaso o hibernate não crie a estrutura de tabelas da aplicação, o sql a seguir pode ser usado para criar as tabelas:
+
+create table patient (
+    id serial,
+    name varchar(255),
+    phone varchar(255),
+    cpf varchar(255),
+    createdIn date,
+    lastUpdate date,
+primary key(id)
+);
+
+create table speciality(
+    id serial,
+    name varchar(255),
+    createdIn date,
+    lastUpdate date,
+primary key(id)
+);
+
+create table doctor(
+    id serial,
+    name varchar(255),
+    phone varchar(255),
+    cpf varchar(255),
+    crm varchar(255),
+    createdIn date,
+    lastUpdate date,
+primary key(id)
+);
+
+create table doctor_speciality(
+    doctor_id integer,
+    specialities_id integer,
+foreign key (doctor_id) references Doctor(id),
+foreign key (specialities_id) references Speciality(id)
+);
+
+Obs: Se por qualquer motivo a porta 8084 estiver indisponível, selecione uma porta que esteja disponível para o servidor e altere a url do serviço no script com extensão .js (esta no diretório js do projeto web). Altere o número 8084 para o número da porta que esteja disponível que você escolheu.
 
